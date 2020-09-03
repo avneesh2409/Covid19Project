@@ -1,0 +1,12 @@
+﻿export const REGISTER_USER_REQUEST = 'REGISTER_USER_REQUEST'
+export const REGISTER_USER_RESPONSE = 'REGISTER_USER_RESPONSE'
+export const REGISTER_USER_ERROR = 'REGISTER_USER_ERROR'
+
+export const LOGIN_USER_REQUEST = 'LOGIN_USER_REQUEST'
+export const LOGIN_USER_RESPONSE = 'LOGIN_USER_RESPONSE'
+export const LOGIN_USER_ERROR = 'LOGIN_USER_ERROR'
+export const CLEAR_LOG_DATA = 'CLEAR_LOG_DATA'
+
+export const REGISTER_URL = '/api/register'
+export const LOGIN_URL = '/api/login'
+export const LOGOUT_USER = 'LOGOUT_USER'
