@@ -17,9 +17,10 @@ namespace MySecondWebApplication.Models
         public bool AddUser(AccountModel user)
         {
             user.CreatedBy = user.Name;
-            user.CreatedOn = user.CreatedOn ?? new DateTime().ToString();
+            user.Password = EncodePasswordToBase64(user.Password);
+            user.CreatedOn = user.CreatedOn ?? DateTime.Now.ToString();
             user.ModifiedBy = user.Name;
-            user.ModifiedOn = user.ModifiedOn ?? new DateTime().ToString();
+            user.ModifiedOn = user.ModifiedOn ?? DateTime.Now.ToString();
 
             try
             {
@@ -39,7 +40,7 @@ namespace MySecondWebApplication.Models
         {
             try
             {
-                var res = _context.accounts.Where(s => (s.Email == email && s.Password == password))
+                var res = _context.accounts.Where(s => (s.Email == email && s.Password == EncodePasswordToBase64(password)))
                            .FirstOrDefault();
                 if (res != null)
                 {
@@ -57,6 +58,31 @@ namespace MySecondWebApplication.Models
                 return null;
             }
 
+        }
+        public static string EncodePasswordToBase64(string password)
+        {
+            try
+            {
+                byte[] encData_byte = new byte[password.Length];
+                encData_byte = System.Text.Encoding.UTF8.GetBytes(password);
+                string encodedData = Convert.ToBase64String(encData_byte);
+                return encodedData;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error in base64Encode" + ex.Message);
+            }
+        }
+        public static string DecodeFrom64(string encodedData)
+        {
+            System.Text.UTF8Encoding encoder = new System.Text.UTF8Encoding();
+            System.Text.Decoder utf8Decode = encoder.GetDecoder();
+            byte[] todecode_byte = Convert.FromBase64String(encodedData);
+            int charCount = utf8Decode.GetCharCount(todecode_byte, 0, todecode_byte.Length);
+            char[] decoded_char = new char[charCount];
+            utf8Decode.GetChars(todecode_byte, 0, todecode_byte.Length, decoded_char, 0);
+            string result = new String(decoded_char);
+            return result;
         }
         IEnumerable<AccountModel> IAccountModel.GetUsers()
         {
