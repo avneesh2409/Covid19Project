@@ -32,18 +32,17 @@ export const registerUserResponse = (data) => {
         }
     }
     else {
-        alert("unable to registered");
         return {
-            type: REGISTER_USER_RESPONSE,
-            data: null
+            type: REGISTER_USER_ERROR,
+            error: "Database Connection Error"
         }
     }
 }
 export const registerUserError = (error) => {
-    alert("unable to registered");
+    console.log(error)
     return {
         type: REGISTER_USER_ERROR,
-        error
+        error: error
     }
 }
 

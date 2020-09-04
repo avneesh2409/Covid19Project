@@ -16,25 +16,33 @@ namespace MySecondWebApplication.Models
         }
         public bool AddUser(AccountModel user)
         {
-            try {
+            user.CreatedBy = user.Name;
+            user.CreatedOn = user.CreatedOn ?? new DateTime().ToString();
+            user.ModifiedBy = user.Name;
+            user.ModifiedOn = user.ModifiedOn ?? new DateTime().ToString();
+
+            try
+            {
                 _context.accounts.Add(user);
                 _context.SaveChanges();
                 return true;
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 Console.WriteLine(ex.Message);
                 return false;
             }
-           
+
         }
 
         public UserViewModel GetUser(string email, string password)
         {
             try
             {
-                var res = _context.accounts.Where(s =>(s.Email == email && s.Password == password))
+                var res = _context.accounts.Where(s => (s.Email == email && s.Password == password))
                            .FirstOrDefault();
-                if (res != null) {
+                if (res != null)
+                {
                     UserViewModel user = new UserViewModel();
                     user.Email = res.Email;
                     user.Name = res.Name;
@@ -43,11 +51,12 @@ namespace MySecondWebApplication.Models
                 }
                 return null;
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 Console.WriteLine(ex.Message);
                 return null;
             }
-            
+
         }
         IEnumerable<AccountModel> IAccountModel.GetUsers()
         {
