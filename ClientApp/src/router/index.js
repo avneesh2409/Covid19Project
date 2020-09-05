@@ -1,4 +1,4 @@
-﻿import React, { useEffect } from 'react'
+﻿import React from 'react'
 import Layout from '../components/Layout'
 import { Route, Redirect } from 'react-router'
 import Logout from '../components/child/LogoutForm'
@@ -6,6 +6,8 @@ import Login from '../components/child/LoginForm'
 import Register from '../components/child/RegisterForm'
 import Home from '../components/home'
 import { useSelector } from 'react-redux'
+import DemoRouter from '../components/Demo'
+import Card from '../components/Demo/card'
 
 const Router = () => {
     const state = useSelector(state => state.UserReducer);
@@ -14,16 +16,18 @@ const Router = () => {
             {
                 (state.token) ?
                     <>
-                        <Route exact path='/home' render={() => <Home />} />
-                        <Route exact path='/logout' render={() => <Logout />} />
+                        <Route exact path='/home' component={Home} />
+                        <Route exact path='/logout' component={Logout} />
                         <Route path='*' render={() => <Redirect to='/home' />} />
                     </>
                     :
                     <>
-                        <Route exact path='/login' render={() => <Login />} />
-                        <Route exact path='/register' render={() => <Register />} />
                         <Route exact path='/' render={() => <h1>we are in index page</h1>} />
-                        <Route exact path='*' render={() => <Redirect to='/' />} />
+                        <Route exact path='/login' component={Login} />
+                        <Route exact path='/register' component={Register} />
+                        <Route exact path='/demo' component={DemoRouter} />
+                        <Route exact path='/demo/:id' component={Card} />
+                        <Route path="*" render={()=><Redirect to='' />} />
                     </>
             }
         </Layout>

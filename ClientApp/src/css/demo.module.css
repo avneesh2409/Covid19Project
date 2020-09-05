@@ -1,0 +1,15 @@
+.wrapper{
+    background:#ddd;
+    padding:20px;
+    margin:20px;
+    border:5px solid brown;
+    cursor: pointer;
+}
+#id{
+    font-family: cursive;
+    padding: 10px;
+    margin: 20px;
+    background: black;
+    color: white;
+    
+}

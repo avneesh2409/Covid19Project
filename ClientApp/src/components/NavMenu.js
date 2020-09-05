@@ -15,7 +15,11 @@ const NavMenu = () => {
                                     <>
                                         <Link className={styles.anchorStyle} to="/home">Home</Link>
                                     </>
-                                    : <Link className={styles.anchorStyle} to="/">Index</Link>
+                                    :
+                                <>
+                                    <Link className={styles.anchorStyle} to="/">Index</Link>
+                                    <Link className={styles.anchorStyle} to="/demo">Demo</Link>
+                                </>
                             }
                             
                         </ul>
